@@ -1,3 +1,5 @@
+var arriba = false, abajo = false, der = false, izq = false;
+var teclaW = false, teclaS = false, teclaD = false, teclaA = false;
 
 function Teclado(){
 
