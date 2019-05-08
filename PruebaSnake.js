@@ -1,8 +1,6 @@
 var escala = 20;
 var s, c,k; // objetos serpiente, comida y teclado.
 var columnas, filas, tamañoAreaDeJuego = 400; 
-var arriba = false, abajo = false, der = false, izq = false;
-var teclaW = false, teclaS = false, teclaD = false, teclaA = false;
 
 	
 	function setup() {
