@@ -1,17 +1,19 @@
 var arriba = false, abajo = false, der = false, izq = false;
 var teclaW = false, teclaS = false, teclaD = false, teclaA = false;
 
-function Teclado(){
+function Teclado(){  
 
-	if(event.keyCode === 38 && arriba === false && abajo === false){
 
+this.keyPressed = function(){
+	if( keyCode === UP_ARROW && arriba === false && abajo === false){
+		
 		s.direccion(0, -1);
 		arriba = true;
 		abajo = true;
 		izq = false;
 		der = false;
-
-	}else if (event.keyCode === 40 && abajo === false && arriba === false){
+		
+	}else if (keyCode === DOWN_ARROW && abajo === false && arriba === false){
 
 		s.direccion(0, 1);
 		abajo = true;
@@ -19,7 +21,7 @@ function Teclado(){
 		izq = false;
 		der = false;
 
-	}else if (event.keyCode === 37 && izq === false && der === false){
+	}else if (keyCode === LEFT_ARROW && izq === false && der === false){
 
 		s.direccion(-1, 0);
 		izq = true;
@@ -27,14 +29,14 @@ function Teclado(){
 		arriba = false;
 		der = true;
 
-	}else if (event.keyCode === 39 && der === false && izq === false){
+	}else if (keyCode === RIGHT_ARROW && der === false && izq === false){
 
 		s.direccion(1, 0);
 		der = true;
 		abajo = false;
 		izq = true;
 		arriba = false;
-	}else if(event.keyCode === 87 && teclaW === false && teclaS === false){
+	}else if(key === 'w' && arriba === false && abajo === false){
 
 		s.direccion(0, -1);
 		arriba = true;
@@ -42,7 +44,7 @@ function Teclado(){
 		izq = false;
 		der = false;
 
-	}else if (event.keyCode === 83 && teclaS === false && teclaW === false){
+	}else if (key === 's' && abajo === false && arriba === false){
 
 		s.direccion(0, 1);
 		abajo = true;
@@ -50,7 +52,7 @@ function Teclado(){
 		izq = false;
 		der = false;
 
-	}else if (event.keyCode === 65 && teclaA === false && teclaD === false){
+	}else if (key === 'a' && izq === false && der === false){
 
 		s.direccion(-1, 0);
 		izq = true;
@@ -58,12 +60,13 @@ function Teclado(){
 		arriba = false;
 		der = true;
 
-	}else if (event.keyCode === 68 && teclaD === false && teclaA === false){
+	}else if (key === 'd' && der === false && izq === false){
 
 		s.direccion(1, 0);
 		der = true;
 		abajo = false;
 		izq = true;
 		arriba = false;
+		}
 	}
 }
