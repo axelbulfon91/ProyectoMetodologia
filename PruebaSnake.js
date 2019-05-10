@@ -14,6 +14,7 @@ var columnas, filas, tamañoAreaDeJuego = 400;
 		k = new Teclado();
 	  	c.posicionarComida(columnas,filas); // posiciona la primera comida
 	  	k.Teclado();
+
 	}
 
 
@@ -35,5 +36,6 @@ var columnas, filas, tamañoAreaDeJuego = 400;
 		k.Teclado();            // llama funcion teclado.
 
 	}
+
 
 
