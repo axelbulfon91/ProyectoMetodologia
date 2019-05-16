@@ -30,7 +30,11 @@ function Serpiente () {
 
 				this.tam = 0;
 				this.cola = [];
-				this.devolverPuntaje();
+				this.devolverPuntaje(); 
+				
+				alert("GAME OVER");
+            document.location.reload();
+            clearInterval(interval); // Needed for Chrome to end game
 			}
 		}
 

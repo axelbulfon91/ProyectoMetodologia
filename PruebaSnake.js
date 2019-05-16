@@ -5,7 +5,7 @@ var columnas, filas, tamañoAreaDeJuego = 400;
 	
 	function setup() {
 	  	
-	  	frameRate(15);  	
+	  	frameRate(3);  	
 	  	createCanvas(tamañoAreaDeJuego, tamañoAreaDeJuego + 50);
 	  	columnas = floor(tamañoAreaDeJuego/escala);
 	  	filas = floor(tamañoAreaDeJuego/escala);
