@@ -8,6 +8,7 @@ function Serpiente () {
 	this.yVel = 0;
 	this.tam = 0;
 	this.cola = [];
+	this.punt = 0;
 	com = new Comida();
 	this.tamañoAreaDeJuego = 400;
 
@@ -29,6 +30,7 @@ function Serpiente () {
 
 				this.tam = 0;
 				this.cola = [];
+				this.devolverPuntaje();
 			}
 		}
 
@@ -49,6 +51,7 @@ function Serpiente () {
 		}
 
 	}
+	
 	this.actualizarPos = function(){
 			
 		for(var i = 0; i < this.cola.length - 1 ; i++){
@@ -90,7 +93,13 @@ function Serpiente () {
  			com.posicionarComida(columnas, filas);
  			print ("La serpiente comio");
   		}
-
+		
+	}	
+	
+	this.devolverPuntaje = function(){
+		
+		this.punt = this.tam * 5;
+		
 	}
 
 }
