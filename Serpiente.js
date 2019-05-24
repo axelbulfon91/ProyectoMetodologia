@@ -104,6 +104,12 @@ function Serpiente () {
 		
 		this.punt = this.tam * 5;
 		
+	} 
+	this.PantallaInicial = function(){
+	
+		background(50, 200, 100);
+		fill(50,200,150)	
+		
 	}
 
 }
