@@ -225,12 +225,12 @@ this.sound();
 				fill(255,255,255);
 				rect(botonSalir[0], botonSalir[1], botonSalir[2], botonSalir[3]);
 				fill(0);
-				text('SALIR',280,389);
+				text('SALIR',296,389);
 
 				fill(255,255,255);
 				rect(botonReseteo[0], botonReseteo[1], botonReseteo[2], botonReseteo[3]);
 				fill(0);
-				text('RESETEAR',58,389);
+				text('RESETEAR',98,389);
 			}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 }
