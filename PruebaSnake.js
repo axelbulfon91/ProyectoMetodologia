@@ -1,6 +1,6 @@
 	var escala = 20;
 	var s, c,k; // objetos serpiente y comida
-	var columnas, filas, tamañoAreaDeJuego = 400; 
+	var columnas, filas, tamañoAreaDeJuego = 600; 
 
 	////////////////////////////////////////////////////7
 	var botonComenzar =[];
@@ -16,19 +16,20 @@
 	var sonMov = new Audio ('sonidoMovimiento.mp3');
 	var sonMuert = new Audio ('sonidoMuerte.mp3');
 	var sonFrut = new Audio ('sonidoObtieneFruta.mp3');
-	var estadoSonido = false; //Esta variable ayuda a que cuando se presiona la tecla "l" una vez, se mute el sonido, cuando se apriete nuevamente se reproduzca nuevamente el sonido. 
+	var estadoSonido = true; //Esta variable ayuda a que cuando se presiona la tecla "l" una vez, se mute el sonido, cuando se apriete nuevamente se reproduzca nuevamente el sonido. 
 //////////////////////////////////////////////////////
 
 function setup() { 
 
-	frameRate(5);  	
+	frameRate(10);  	
 	createCanvas(tamañoAreaDeJuego, tamañoAreaDeJuego + 50);
 	columnas = floor(tamañoAreaDeJuego/escala);
 	filas = floor(tamañoAreaDeJuego/escala);
 	s = new Serpiente();  	// crea objeto serpiente
-	c = new Comida();  		// crea objeto comida
 	k = new Teclado();
-	c.posicionarComida(columnas,filas); // posiciona la primera comida
+	s.setVelocidadInicial();
+	console.log("Velocidad x: " + s.xVel + " Velocidad y " + s.yVel)
+
 
 
 	////////////////////////////////////////////////////////////////////////////////////////7777
@@ -182,19 +183,19 @@ this.sound();
 				myImage2.style.display = 'none';
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-	background(50, 200, 100);
+	background(250, 250, 250);
 	fill(50,200,150)	
-	rect(0,400,400,400);
-	fill (0);
-	textSize(16); 
+	rect(0,tamañoAreaDeJuego, tamañoAreaDeJuego,tamañoAreaDeJuego*0.1);
 	k.keyPressed();
 	s.actualizarPos();		// en cada frame la serpiente actualiza su posicion
 	s.muere();// en cada frame comprueba si la serpiente muere
 	s.mostrar();	// en cada frame se dibuja la serpiente (con su nueva posicion generada arriba)
 	s.comprobarSiCome(); 	// en cada frame comprueba si la serpiente come, de ser asi vuelve a crear otra comida a travez del metodo posicionarComida
-	c.dibujarComida();		// dibuja comida
+	s.dibujarComida();		// dibuja comida
+	fill (0);
+	textSize(16); 
 	s.devolverPuntaje();
-	text('Puntaje: ' + s.punt, 20, 430); 
+	text('Puntaje: ' + s.punt, tamañoAreaDeJuego*0.05, (tamañoAreaDeJuego+ (tamañoAreaDeJuego*0.1)/2))
 		}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
