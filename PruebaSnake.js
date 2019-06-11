@@ -30,6 +30,11 @@ function setup() {
 	columnas = floor(tamañoAreaDeJuego/escala);
 	filas = floor(tamañoAreaDeJuego/escala);
 	s = new Serpiente();  	// crea objeto serpiente
+	
+	visionComida = [0,0,0,0];	// inicia vision de serpiente en 4 direcciones cada una
+	visionPared = [0,0,0,0];
+	visionCola = [0,0,0,0];
+	
 	c = new Comida();  		// crea objeto comida
 	k = new Teclado();
 	c.posicionarComida(columnas,filas); // posiciona la primera comida
