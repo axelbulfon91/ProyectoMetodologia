@@ -1,5 +1,6 @@
 
 var com;
+var visionComida, visionPared, visionCola;
 
 function Serpiente () {
 
@@ -139,38 +140,40 @@ function Serpiente () {
 		// -------------------------------------------------------------------------------------------------------Va mirando comida
 		if(distanciaDeVision.x === posComida.x && distanciaDeVision.y - this.rangoVision === posComida.y){
 
-			print ('--------------Esta viendo COMIDA arriba --------------');
-
+			visionComida[0] = 1;
+			
 		}else if(distanciaDeVision.x === posComida.x && distanciaDeVision.y + this.rangoVision === posComida.y){
 
-			print ('--------------Esta viendo COMIDA abajo --------------');	
-
+			visionComida[1] = 1;
+		
 		}else if(distanciaDeVision.x + this.rangoVision === posComida.x && distanciaDeVision.y === posComida.y){
 
-			print ('--------------Esta viendo COMIDA a la derecha --------------');	
-
+			visionComida[2] = 1;
+			
 		}
 		else if(distanciaDeVision.x - this.rangoVision === posComida.x && distanciaDeVision.y === posComida.y){
 
-			print ('--------------Esta viendo COMIDA a la izquierda --------------');	
+			visionComida[3] = 1;
 
 		}
 		// -------------------------------------------------------------------------------------------------------Va mirando paredes
-		if( distanciaDeVision.y - this.rangoVision === 0){
+		if( distanciaDeVision.y - this.rangoVision + escala === 0){
 
-			print ('--------------Esta viendo PARED arriba --------------');
-
+			visionPared[0] = 1;
+			
 		}else if(distanciaDeVision.y + this.rangoVision === 400){
 
-			print ('--------------Esta viendo PARED abajo --------------');	
+			visionPared[1] = 1;
+			
 
 		}else if(distanciaDeVision.x + this.rangoVision === 400){
 
-			print ('--------------Esta viendo PARED a la derecha --------------');	
+			visionPared[2] = 1;
+			
 
-		}else if(distanciaDeVision.x - this.rangoVision === 0){
+		}else if(distanciaDeVision.x - this.rangoVision + escala === 0){
 
-			print ('--------------Esta viendo PARED a la izquierda --------------');	
+			visionPared[3] = 1;	
 
 		}
 		
@@ -180,22 +183,23 @@ function Serpiente () {
 
 			if(distanciaDeVision.x === this.cola[i].x && distanciaDeVision.y - this.rangoVision === this.cola[i].y){
 
-				print ('--------------Esta viendo SU COLA arriba --------------');
-
+				visionCola[0] = 1;
+				
 			}else if(distanciaDeVision.x === this.cola[i].x && distanciaDeVision.y + this.rangoVision === this.cola[i].y){
 
-				print ('--------------Esta viendo SU COLA abajo --------------');	
-
+				visionCola[1] = 1;
+				
 			}else if(distanciaDeVision.x + this.rangoVision === this.cola[i].x && distanciaDeVision.y === this.cola[i].y){
 
-				print ('--------------Esta viendo SU COLA a la derecha --------------');	
-
+				visionCola[2] = 1;
+				
 			}else if(distanciaDeVision.x - this.rangoVision === this.cola[i].x && distanciaDeVision.y === this.cola[i].y){
 
-				print ('--------------Esta viendo SU COLA a la izquierda --------------');	
+				visionCola[3] = 1;	
 
 			}
 		}
+		
 		this.rangoVision += escala;
 
 	}while(this.rangoVision <= this.maximaVision);		
