@@ -1,6 +1,6 @@
 	var escala = 20;
 	var s, c,k; // objetos serpiente y comida
-	var columnas, filas, tamañoAreaDeJuego = 600; 
+	var columnas, filas, tamañoAreaDeJuego = 400; 
 
 	////////////////////////////////////////////////////7
 	var botonComenzar =[];

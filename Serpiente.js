@@ -92,7 +92,7 @@ function Serpiente () {
 		//Dibuja los bloques correspondientes a la cola	
 		
 		for(var i = this.tam -1 ; i > -1; i--){
-			fill(this.colorInicial1-i*5, this.colorInicial2-i*5, this.colorInicial3-i*5, 100+i*4);
+			fill(this.colorInicial1-i*5, this.colorInicial2-i*2, this.colorInicial3-i*2, 100+i*4);
 			rect(this.cola[i].x , this.cola[i].y, escala, escala,5);
 		}
 		//Dibula el bloque de la cabeza
@@ -125,12 +125,12 @@ function Serpiente () {
 	//---------------- COMIDA -------------------------
 	this.posicionarComida = function(){
 		var overlapping = true;
-		do{
+		do{//Comprueba que la comida generada no se superponga ni con la cabeza ni con la cola
 			overlapping = false;
 			this.comida.x =  floor(random(tamañoAreaDeJuego/escala))*escala;
 			this.comida.y =  floor(random(tamañoAreaDeJuego/escala))*escala;
 			for (let i = 0; i < this.cola.length; i++) {
-				if (this.comida.x == this.cola[i].x && this.comida.y == this.cola[i].y) {
+				if ((this.comida.x == this.cola[i].x && this.comida.y == this.cola[i].y)||(this.comida.x == this.x && this.comida.y == this.y)) {
 					overlapping = true;
 					console.log("Overlapping");
 					break;
