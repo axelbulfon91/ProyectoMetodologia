@@ -12,7 +12,7 @@ this.keyPressed = function(){
 	  
 		if( keyCode === UP_ARROW && arriba === false && abajo === false){
 			
-			s.cambiarDireccion(0, -1);
+			s.direccion(0, -1);
 			arriba = true;
 			abajo = true;
 			izq = false;
@@ -21,7 +21,7 @@ this.keyPressed = function(){
 			
 		}else if (keyCode === DOWN_ARROW && abajo === false && arriba === false){
 
-			s.cambiarDireccion(0, 1);
+			s.direccion(0, 1);
 			abajo = true;
 			arriba = true;
 			izq = false;
@@ -30,7 +30,7 @@ this.keyPressed = function(){
 
 		}else if (keyCode === LEFT_ARROW && izq === false && der === false){
 
-			s.cambiarDireccion(-1, 0);
+			s.direccion(-1, 0);
 			izq = true;
 			abajo = false;
 			arriba = false;
@@ -39,7 +39,7 @@ this.keyPressed = function(){
 
 		}else if (keyCode === RIGHT_ARROW && der === false && izq === false){
 
-			s.cambiarDireccion(1, 0);
+			s.direccion(1, 0);
 			der = true;
 			abajo = false;
 			izq = true;
@@ -48,7 +48,7 @@ this.keyPressed = function(){
 			
 		}else if(key === 'w' && arriba === false && abajo === false){
 
-			s.cambiarDireccion(0, -1);
+			s.direccion(0, -1);
 			arriba = true;
 			abajo = true;
 			izq = false;
@@ -57,7 +57,7 @@ this.keyPressed = function(){
 
 		}else if (key === 's' && abajo === false && arriba === false){
 
-			s.cambiarDireccion(0, 1);
+			s.direccion(0, 1);
 			abajo = true;
 			arriba = true;
 			izq = false;
@@ -66,7 +66,7 @@ this.keyPressed = function(){
 
 		}else if (key === 'a' && izq === false && der === false){
 
-			s.cambiarDireccion(-1, 0);
+			s.direccion(-1, 0);
 			izq = true;
 			abajo = false;
 			arriba = false;
@@ -75,7 +75,7 @@ this.keyPressed = function(){
 
 		}else if (key === 'd' && der === false && izq === false){
 
-			s.cambiarDireccion(1, 0);
+			s.direccion(1, 0);
 			der = true;
 			abajo = false;
 			izq = true;
