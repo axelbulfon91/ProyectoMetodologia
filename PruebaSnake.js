@@ -1,15 +1,15 @@
 
 // CON AL MODIFICACION DE LA SIGUIENTE VARIABLE SE M ODIFICA TODA LA ESCALA-TAMAÑO DEL JUEGO COMPLETO:
-	var escala = 15;     //(20)  valor relacionado con la escala del juego
+	var escala = 25;     //(20)  valor relacionado con la escala del juego
 		
 	//El ancho del area del juego es una proporcion de la variable escala:
 	var anchoAreaDeJuego = escala * 20; 
-	//La altura va en funcion del ancho para que mantenga proporcion adecuada // tambien se puede modificafr esto para darle la altura que se desee mas alla del ancho
+	//La altura va en funcion del ancho para que mantenga proporcion adecuada 
+	// tambien se puede modificafr esto para darle la altura que se desee mas alla del ancho
 	var altoAreaDeJuego =anchoAreaDeJuego * 1.125; //(450)   Valor nominal anterior 
 	var s, c,k; // objetos serpiente y comida
 	var columnas, filas;
 
-	////////////////////////////////////////////////////7
 	var botonComenzar =[];
 	var botonSalir =[];
 	var botonReseteo =[];
@@ -19,20 +19,48 @@
 	var botonIA =[];
 	var myImage = new Image(anchoAreaDeJuego * 0.750 ,altoAreaDeJuego * 0.666); // Primer valor ancho  (300), segundo valor alto (300)
 	var myImage2 = new Image (anchoAreaDeJuego * 0.950 ,altoAreaDeJuego * 0.333);//Titulo "Snake" // Primer valor ancho  (380), segundo valor alto (150)
-	var myImage3 = new Image(620,230);//Ayuda
-	var gameOverImage = new Image (anchoAreaDeJuego * 0.875 ,altoAreaDeJuego * 0.444); // Primer valor ancho  (350), segundo valor alto (200)
+	var myImage3 = new Image(anchoAreaDeJuego * 1.550,altoAreaDeJuego * 0.444);//Ayuda // Primer valor ancho  (620), segundo valor alto (230)
 	var pantallaFin = false;
+	var gameOverImage = new Image (anchoAreaDeJuego * 0.875 ,altoAreaDeJuego * 0.444); // Primer valor ancho  (350), segundo valor alto (200)
 	var serpienteFinImagen = new Image(anchoAreaDeJuego * 0.750 ,altoAreaDeJuego * 0.444);// Primer valor ancho  (300), segundo valor alto (200)
 	var sonMuteImg = new Image(anchoAreaDeJuego * 0.100 ,altoAreaDeJuego * 0.088);// Primer valor ancho  (40), segundo valor alto (40)
 	var sonMenu = new Audio('sonidoMenu.mp3');
 	var sonMov = new Audio ('sonidoMovimiento.mp3');
 	var sonMuert = new Audio ('sonidoMuerte.mp3');
 	var sonFrut = new Audio ('sonidoObtieneFruta.mp3');
-	var estadoSonido = true; //Esta variable ayuda a que cuando se presiona la tecla "m" una vez, se mute el sonido, cuando se apriete nuevamente se reproduzca nuevamente el sonido. 
-//////////////////////////////////////////////////////
+	var estadoSonido = true; //Esta variable ayuda a que cuando se presiona la tecla "m" una vez, se mute el sonido, 
+	//cuando se apriete nuevamente se reproduzca nuevamente el sonido. 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//     VARIABLES SERPIENTE IA:
+let s;
+let escala = 20;
+let columnas;
+let filas;
+let comida;
+let fueraDeTiempo;
+let limite;
+let tiempoTomado;
+
+let espacioExt = 10;
+let poblacionActual;
+let poblacion = [];
+let largo = [];
+let contJugadas;
+let sumalargo;
+let juegosPorPoblacion = 3;
+let mejorLargo;
+let mejorId;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////        FUNCTION SETUP             /////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
+
 
 function setup() { 
 
+////////////////////////////////////////    SETUP SERPIENTE HUMANA   ////////////////////////////////////////////////////////////////////////////////////
+
+//La siguiente variable modifica la velocidad del moviemiento de la serpiente humana:
 	frameRate(5);  	
 	createCanvas(anchoAreaDeJuego, altoAreaDeJuego);
 	columnas = floor(anchoAreaDeJuego/escala);
@@ -48,18 +76,17 @@ function setup() {
 	c.posicionarComida(columnas,filas); // posiciona la primera comida
 
 
-	////////////////////////////////////////////////////////////////////////////////////////
 	  	botonComenzar[0]=round(anchoAreaDeJuego * 0.125);//(50)  Controla la posicion del boton en linea horizontal
 		 botonComenzar[1]=round(altoAreaDeJuego * 0.822);//(370)  Controla la posicion del boton en linea vertical
 		 botonComenzar[2]=round(anchoAreaDeJuego * 0.250);//(100)  Controla el ancho del boton
 		 botonComenzar[3]=round(altoAreaDeJuego * 0.066);//(50)   Controla el alto del boton
 		 botonComenzar[4]=0;//Controla el "prendido" o "apagado" del boton  
 	
-		 botonInstrucciones[0]=150;//Controla la posicion del boton en linea horizontal
-		 botonInstrucciones[1]=370;//Controla la posicion del boton en linea vertical
-		 botonInstrucciones[2]=100;//Controla el ancho del boton
-		 botonInstrucciones[3]=30;//Controla el alto del boton
-		 botonInstrucciones[4]=0;//Controla el "prendido" o "apagado" del boton
+		 botonInstrucciones[0]=round(anchoAreaDeJuego * 0.375);//(150)  Controla la posicion del boton en linea horizontal
+		 botonInstrucciones[1]=round(altoAreaDeJuego * 0.822);//(370)  Controla la posicion del boton en linea vertical
+		 botonInstrucciones[2]=round(anchoAreaDeJuego * 0.250);//(100)  Controla el ancho del boton
+		 botonInstrucciones[3]=round(altoAreaDeJuego * 0.066);//(30)  Controla el alto del boton
+		 botonInstrucciones[4]=0;//()  Controla el "prendido" o "apagado" del boton
 		 
 
 		 botonSalir[0]=round(anchoAreaDeJuego * 0.625);//(250)  Controla la posicion del boton en linea horizontal
@@ -104,8 +131,8 @@ function setup() {
 		//Ayuda del juego 
 		myImage3.src = 'ayuda.png';
 		myImage3.style.position = 'absolute';
-		myImage3.style.left = '550px';
-		myImage3.style.top = '160px';
+		myImage3.style.left = (anchoAreaDeJuego * 1.375)+'px';//(550)tamaño horizontal
+		myImage3.style.top = (altoAreaDeJuego * 0.355)+'px';//(160) tamaño vertical
 		//myImage3.style.mixBlendMode = 'darken';
 		
 
@@ -154,7 +181,27 @@ function setup() {
 	  	myDiv.remove();
 	  });
 
-}
+////////////////////////////////////////    SETUP SERPIENTE IA   ///////////////////////////////////////////////////////////////////////////////////////
+		frameRate(10);  
+		  createCanvas(400, 400);
+		  iniciarInterfazGrafica();
+		  
+		  columnas = floor(width/escala);
+		  filas = floor(height/escala);
+		  limite = columnas*filas*10;
+		  
+		  iniciarPoblacion();
+		  iniciar();
+
+	}// fin metodo setup
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////          METODOS:         /////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////  METODOS SERPIENTE HUMANA:     //////////////////////////////////////////////////////////////////////////////
+
 
 //Sonidos activacion/desactivacion: 
 this.sound = function() {
@@ -172,12 +219,102 @@ this.keyPressed = function(){
 	}
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////	
+////////////////////////////     METODOS SERPIENTE IA    //////////////////////////////////////////////////////////////////////////////////////////
+
+function iniciarInterfazGrafica() {
+  let boton = document.createElement('boton');
+  document.body.appendChild(boton);
+}
+
+function mousePressed() {
+   redraw(1);
+ }
+
+function iniciar() {
+  poblacionActual = 0;
+  mejorLargo = Number.NEGATIVE_INFINITY;
+  s = poblacion[0];
+  
+  s.nacimiento = frameCount;
+  primeraPosComida();
+}
+
+function terminarGeneracion() {
+  console.log("Mejor largo : " + mejorLargo);
+  console.log("Mejor pesos : " + poblacion[mejorId].pesos);
+  console.log("Generando nueva generacion...");
+  proxGeneracion();
+  
+  poblacionActual = 0;
+  s = poblacion[poblacionActual];
+}
+
+function proxSerpiente() {
+  if (mejorLargo < largo[poblacionActual]) {
+    mejorLargo = largo[poblacionActual];
+    mejorId = poblacionActual;
+  }
+
+  poblacionActual++;
+  if (poblacionActual === poblacion.length) {
+    terminarGeneracion();
+  }
+  s = poblacion[poblacionActual];
+  s.nacimiento = frameCount;
+  primeraPosComida();
+}
+
+function volverAJugar() {
+  s = new Serpiente(0, 0, 0, 0, 0, [], poblacion[poblacionActual].pesos, 0);
+  s.nacimiento = frameCount;
+  primeraPosComida();
+}
+
+function iniciarPoblacion() {
+  for (let i = 0; i < espacioExt; i++) {
+    let pesos = [random(-1, 0), random(-1, 0), random(-1, 1), random(-1, 0), random(-1, 0)];
+    poblacion.push(new Serpiente(0, 0, 0, 0, 0, [], pesos, 0));
+  }
+  sumalargo = 0;
+  contJugadas = 0;
+}
+
+function primeraPosComida() {
+  comida = createVector(floor(random(columnas)), floor(random(filas)));
+  comida.mult(escala);
+  fueraDeTiempo = frameCount + limite;
+}
+
+function tomarPos() {
+  let bandera = true;
+  fueraDeTiempo = frameCount + limite;
+
+  while(bandera) {
+    bandera = false;
+    comida = createVector(floor(random(columnas)), floor(random(filas)));
+    comida.mult(escala);
+    for (let i = 0; i < s.cola.length; i++) {
+      if (comida.x === s.cola[i].x && comida.y === s.cola[i].y) {
+        bandera = true;
+        break;
+      }
+    }
+    if (comida.x === s.x && comida.y === s.y) {
+      bandera = true;
+    }
+  }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+////////////////////////////////   FUNCTION DRAW   /////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 function draw() {
         
-	 //////////////////////////////////////////////////////////////////////////////////////////
+	
 document.body.appendChild(sonMuteImg);
 
 if (estadoSonido === true){
@@ -205,7 +342,7 @@ this.sound();
 			rect(botonSalir[0], botonSalir[1], botonSalir[2], botonSalir[3]);
 			text('SALIR',anchoAreaDeJuego * 0.700 ,altoAreaDeJuego * 0.864);// Primer valor posicion a lo ancho  (280), segundo valor posicion a lo alto (389)
 			rect(botonInstrucciones[0], botonInstrucciones[1], botonInstrucciones[2], botonInstrucciones[3]);
-			text('AYUDA',175,389);//el primer valor hace referencia a la posicion en el eje de "X" y el segundo a la posicion en el eje de "Y"
+			text('AYUDA',anchoAreaDeJuego * 0.437,altoAreaDeJuego * 0.864);//Primer valor posicion a lo ancho  (175), segundo valor posicion a lo alto (389)
 
 			
 			//Evento de presionado del boton de Comienzo del juego: (Recordar: el evento es uno solo pero puedo incluir mas de un boton)
@@ -229,15 +366,16 @@ this.sound();
 					}
 				}
 			}
-			
+
 	if(botonInstrucciones[4]==1){
 	document.body.appendChild(myImage3);
 
 	}
 
-			//La siguiente condicion abre el juego cuando comprueba que se selecciono el boton "Comenzar";
+//La siguiente condicion abre el juego cuando comprueba que se selecciono el boton "Comenzar";
 	if(botonComenzar[4]==1){
 
+		myImage3.style.visibility = 'hidden';
 		background(236,168,52); 
         textSize(anchoAreaDeJuego * 0.040);
 		rect(botonIA[0], botonIA[1], botonIA[2], botonIA[3]);
@@ -262,6 +400,8 @@ this.mousePressed = function(){
 				}
 			}
 
+/////////////////         SERPIENTE "HUMANA":       /////////////////////////////////////////////////////////////////////////////////////////////////////
+
 if(botonHumano[4]==1){
 
 	sonMenu.pause();
@@ -285,15 +425,83 @@ if(botonHumano[4]==1){
 		}
 
 
+//////////////////////////////        SERPIENTE IA:       ///////////////////////////////////////////////////////////////////////////////////////////////////
+
 		if(botonHumano[4]==1){
+
 //ACA VA EL DRAW DE LA SERPIENTE INTELIGENTE:
+ background(51);
 
-		}
-	}
+  if (s.comer(comida)) {
+    tomarPos();
+  }
+  
+  let sinLugarADondeIr = false;
+  sinLugarADondeIr = s.moverse(s.tomarDir());
+  s.mostrar();
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  fill(255, 0, 100);
 
-			//La siguiente condicion establece una pantalla de fin de juego, en el caso que la serpiente muera:
+  rect(comida.x, comida.y, escala, escala);
+
+  if (s.morir() || sinLugarADondeIr === true) {
+    
+    let vuelta = false;
+    
+    if(contJugadas === juegosPorPoblacion) {
+      largo[poblacionActual] = sumalargo / juegosPorPoblacion;
+      if (largo[poblacionActual] < 0) largo[poblacionActual] = 0;
+      console.log("Juego Terminado: " + poblacionActual);
+      console.log("pesos: " + poblacion[poblacionActual].pesos);
+      console.log("largo = " + largo[poblacionActual]);
+      sumalargo = 0;
+      contJugadas = 0;
+
+      vuelta = true;
+    }
+    
+    else {
+      sumalargo += s.cola.length + (frameCount-s.nacimiento)/(columnas*filas*-1);
+      contJugadas++;
+    }
+
+    
+    if (vuelta) {
+      proxSerpiente();
+    } else {
+      volverAJugar();
+    }
+  } else if (s.final()) {
+    console.log("Juego Completado: " + poblacionActual);
+    largo[poblacionActual] = s.cola.length + (frameCount-s.nacimiento)/(columnas*filas*-0.5);
+    console.log("largo = " + largo[poblacionActual]);
+    if (poblacionActual === poblacion.length-1) {
+      terminarGeneracion();
+    } else {
+      proxSerpiente();
+    }
+  }
+
+  function keyPressed() {
+  if (keyCode === UP_ARROW) {
+    s.dir(0, -1);
+  } else if (keyCode === DOWN_ARROW) {
+    s.dir(0, 1);
+  } else if (keyCode === RIGHT_ARROW) {
+    s.dir(1, 0);
+  } else if (keyCode === LEFT_ARROW) {
+    s.dir(-1, 0);
+  }
+}
+
+}//fin if boton "Probar IA"
+}//fin funcion draw
+
+
+////////////////////////////      PANTALLA FIN DEL JUEGO:   /////////////////////////////////////////////////////////////////////////////////////////////////
+
+//La siguiente condicion establece una pantalla de fin de juego, en el caso que la serpiente muera:
+
 	if(pantallaFin == true){
 				sonMov.pause();
 				//sonMov.muted='true';
@@ -326,7 +534,7 @@ if(botonHumano[4]==1){
 				fill(0);
 				text('RESETEAR',anchoAreaDeJuego * 0.245 ,altoAreaDeJuego * 0.864);// Primer valor posicion a lo ancho  (98), segundo valor posicion a lo alto (389)
 			}
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		
 }
 
 
