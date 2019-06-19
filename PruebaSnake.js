@@ -13,10 +13,13 @@
 	var botonComenzar =[];
 	var botonSalir =[];
 	var botonReseteo =[];
+
+	var botonInstrucciones=[];
 	var botonHumano =[];
 	var botonIA =[];
 	var myImage = new Image(anchoAreaDeJuego * 0.750 ,altoAreaDeJuego * 0.666); // Primer valor ancho  (300), segundo valor alto (300)
 	var myImage2 = new Image (anchoAreaDeJuego * 0.950 ,altoAreaDeJuego * 0.333);//Titulo "Snake" // Primer valor ancho  (380), segundo valor alto (150)
+	var myImage3 = new Image(620,230);//Ayuda
 	var gameOverImage = new Image (anchoAreaDeJuego * 0.875 ,altoAreaDeJuego * 0.444); // Primer valor ancho  (350), segundo valor alto (200)
 	var pantallaFin = false;
 	var serpienteFinImagen = new Image(anchoAreaDeJuego * 0.750 ,altoAreaDeJuego * 0.444);// Primer valor ancho  (300), segundo valor alto (200)
@@ -35,6 +38,11 @@ function setup() {
 	columnas = floor(anchoAreaDeJuego/escala);
 	filas = floor(anchoAreaDeJuego/escala);
 	s = new Serpiente();  	// crea objeto serpiente
+	
+	visionComida = [0,0,0,0];	// inicia vision de serpiente en 4 direcciones cada una
+	visionPared = [0,0,0,0];
+	visionCola = [0,0,0,0];
+	
 	c = new Comida();  		// crea objeto comida
 	k = new Teclado();
 	c.posicionarComida(columnas,filas); // posiciona la primera comida
@@ -46,6 +54,13 @@ function setup() {
 		 botonComenzar[2]=round(anchoAreaDeJuego * 0.250);//(100)  Controla el ancho del boton
 		 botonComenzar[3]=round(altoAreaDeJuego * 0.066);//(50)   Controla el alto del boton
 		 botonComenzar[4]=0;//Controla el "prendido" o "apagado" del boton  
+	
+		 botonInstrucciones[0]=150;//Controla la posicion del boton en linea horizontal
+		 botonInstrucciones[1]=370;//Controla la posicion del boton en linea vertical
+		 botonInstrucciones[2]=100;//Controla el ancho del boton
+		 botonInstrucciones[3]=30;//Controla el alto del boton
+		 botonInstrucciones[4]=0;//Controla el "prendido" o "apagado" del boton
+		 
 
 		 botonSalir[0]=round(anchoAreaDeJuego * 0.625);//(250)  Controla la posicion del boton en linea horizontal
 		 botonSalir[1]=round(altoAreaDeJuego * 0.822);//(370)  Controla la posicion del boton en linea vertical
@@ -86,6 +101,14 @@ function setup() {
 		myImage2.style.top = (altoAreaDeJuego * 0.055)+'px';//('25px') tamaño vertical
 		myImage2.style.mixBlendMode = 'darken';
 		
+		//Ayuda del juego 
+		myImage3.src = 'ayuda.png';
+		myImage3.style.position = 'absolute';
+		myImage3.style.left = '550px';
+		myImage3.style.top = '160px';
+		//myImage3.style.mixBlendMode = 'darken';
+		
+
 		//Setting Titulo Imagen "Game Over": 
 		gameOverImage.src = 'GAME_OVER.png';
 		gameOverImage.style.position = 'absolute';
@@ -181,6 +204,9 @@ this.sound();
 			text('COMENZAR',anchoAreaDeJuego * 0.135 ,altoAreaDeJuego * 0.864); // Primer valor posicion a lo ancho  (54), segundo valor posicion a lo alto (389)
 			rect(botonSalir[0], botonSalir[1], botonSalir[2], botonSalir[3]);
 			text('SALIR',anchoAreaDeJuego * 0.700 ,altoAreaDeJuego * 0.864);// Primer valor posicion a lo ancho  (280), segundo valor posicion a lo alto (389)
+			rect(botonInstrucciones[0], botonInstrucciones[1], botonInstrucciones[2], botonInstrucciones[3]);
+			text('AYUDA',175,389);//el primer valor hace referencia a la posicion en el eje de "X" y el segundo a la posicion en el eje de "Y"
+
 			
 			//Evento de presionado del boton de Comienzo del juego: (Recordar: el evento es uno solo pero puedo incluir mas de un boton)
 			this.mousePressed = function(){
@@ -195,9 +221,20 @@ this.sound();
 						close();
 					}
 				}
+
+				 if((mouseY<(botonInstrucciones[1]+botonInstrucciones[3])) && (mouseY>(botonInstrucciones[1]))){
+					if((mouseX<(botonInstrucciones[0]+botonInstrucciones[2])) && (mouseX>(botonInstrucciones[0]))){
+						botonInstrucciones[4]=1;
+						
+					}
+				}
 			}
 			
-			
+	if(botonInstrucciones[4]==1){
+	document.body.appendChild(myImage3);
+
+	}
+
 			//La siguiente condicion abre el juego cuando comprueba que se selecciono el boton "Comenzar";
 	if(botonComenzar[4]==1){
 
