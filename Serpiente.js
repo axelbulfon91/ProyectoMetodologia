@@ -14,7 +14,7 @@ function Serpiente () {
 	this.rangoVision = escala // El rango de vision inicial es de una vez el tamaño de la cabeza, osea el cuadro delante de la misma
 	this.maximaVision = this.rangoVision * 5  // Alcance maximo de la vision (5 veces el tamaño de la cabeza)
 	com = new Comida();
-	this.tamañoAreaDeJuego = 400;
+	this.anchoAreaDeJuego; //=400
 
 	this.direccion = function(x, y){
 
@@ -44,7 +44,8 @@ function Serpiente () {
 	          }	
 				 
 				textAlign(CENTER);
-				text('Juego Terminado!!! presione F5 para recargar pagina', 200, 200);
+				textSize(anchoAreaDeJuego * 0.040);
+				text('Juego Terminado!!! presione F5 para recargar pagina', anchoAreaDeJuego * 0.500 ,altoAreaDeJuego * 0.444);// Primer valor posicion a lo ancho  (200), segundo valor posicion a lo alto (200)
 				frameRate(0);
 
 			}
@@ -87,8 +88,8 @@ function Serpiente () {
 		this.x = this.x + this.xVel * escala;
 		this.y = this.y + this.yVel * escala;
 
-		this.x = constrain(this.x, 0, tamañoAreaDeJuego - escala);
-		this.y = constrain(this.y, 0, tamañoAreaDeJuego - escala);
+		this.x = constrain(this.x, 0, anchoAreaDeJuego - escala);
+		this.y = constrain(this.y, 0, anchoAreaDeJuego - escala);
 		
 
 	}

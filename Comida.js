@@ -1,4 +1,4 @@
-var esc = 20;
+var esc = escala; //Se modifico esta variable para que este referida a la variable "escala" de PruebaSerpiente.js para que cambie de tamaño la fruta tambien
 var posComida, comida;
 
 function Comida(){
