@@ -141,7 +141,7 @@ function SerpienteIA(x, y, xVel, yVel, total, cola, pesos, contComida) {
     ds = new SerpienteIA(this.x, this.y, 1, 0, this.total, this.cola, this.pesos, this.contComida);
     ds.update();
     largo = ds.redNeuronal.calcularLargo();
-    // console.log("right largo: " + largo);
+    print("Resultante de fx de activacion: " + largo);
     if (mejorLargo < largo) {
       mejorLargo = largo;
       dir = 0;
