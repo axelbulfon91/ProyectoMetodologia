@@ -1,11 +1,9 @@
-
-var com;
-var visionComida, visionPared, visionCola;
+let com; 
 
 function Serpiente () {
 
-	this.x = 0;
-	this.y = 0;			
+	this.x = 200;
+	this.y = 200;			
 	this.xVel = 1;
 	this.yVel = 0;	
 	this.tam = 0;
@@ -13,8 +11,9 @@ function Serpiente () {
 	this.punt = 0;
 	this.rangoVision = escala // El rango de vision inicial es de una vez el tamaño de la cabeza, osea el cuadro delante de la misma
 	this.maximaVision = this.rangoVision * 5  // Alcance maximo de la vision (5 veces el tamaño de la cabeza)
-	com = new Comida();
-	this.anchoAreaDeJuego; //=400
+	com = new Comi();
+	
+	this.tamanioAreaDeJuego = 400;
 
 	this.direccion = function(x, y){
 
@@ -33,38 +32,23 @@ function Serpiente () {
 
 			if (distanciaAMorir < 1) {
 
+				//this.tam = 0;
+				//this.cola = [];
 				this.devolverPuntaje();
-				sonMov.remove(); 
-				pantallaFin = true;
-				
-				 if(estadoSonido === true){
-	          			sonMuert.play();
-	         		 }else{
-	          			sonMuert.remove();
-	          }	
-				 
 				textAlign(CENTER);
-				textSize(anchoAreaDeJuego * 0.040);
-				text('Juego Terminado!!! presione F5 para recargar pagina', anchoAreaDeJuego * 0.500 ,altoAreaDeJuego * 0.444);// Primer valor posicion a lo ancho  (200), segundo valor posicion a lo alto (200)
+				text('Juego Terminado!!! presione F5 para recargar pagina', 200, 200);
 				frameRate(0);
-
 			}
 		}
 
 	}
 	
-	this.comer = function(pos){
+	this.comer = function(posi){
 
-		var distanciaAComida = dist(this.x, this.y, pos.x, pos.y);
+		var distanciaAComida = dist(this.x, this.y, posi.x, posi.y);
 
 		if (distanciaAComida < 1) {
-			
-			if(estadoSonido === true){
-	          	sonFrut.play();
-	         }else{
-	            sonFrut.remove();
-	          }
-			
+
 			this.tam++;
 			return true;
 
@@ -88,8 +72,8 @@ function Serpiente () {
 		this.x = this.x + this.xVel * escala;
 		this.y = this.y + this.yVel * escala;
 
-		this.x = constrain(this.x, 0, anchoAreaDeJuego - escala);
-		this.y = constrain(this.y, 0, anchoAreaDeJuego - escala);
+		this.x = constrain(this.x, 0, tamanioAreaDeJuego - escala);
+		this.y = constrain(this.y, 0, tamanioAreaDeJuego - escala);
 		
 
 	}
@@ -98,12 +82,6 @@ function Serpiente () {
 
 		fill(255);
 
-		if( estadoSonido === true){
-			sonMov.play();
-		}else{
-			sonMov.remove();
-		}	
-		
 		for(var i = 0; i < this.tam; i++){
 
 			rect(this.cola[i].x , this.cola[i].y, escala, escala);
@@ -121,6 +99,7 @@ function Serpiente () {
 
  			com.posicionarComida(columnas, filas);
  			print ("La serpiente comio");
+ 			return true;
   		}
 		
 	}	
@@ -129,85 +108,7 @@ function Serpiente () {
 		
 		this.punt = this.tam * 5;
 		
-
 	}
 
-	this.vista = function(){
-
-	do{
-		
-		var distanciaDeVision = createVector(this.x , this.y);
-
-		// -------------------------------------------------------------------------------------------------------Va mirando comida
-		if(distanciaDeVision.x === posComida.x && distanciaDeVision.y - this.rangoVision === posComida.y){
-
-			visionComida[0] = 1;
-			
-		}else if(distanciaDeVision.x === posComida.x && distanciaDeVision.y + this.rangoVision === posComida.y){
-
-			visionComida[1] = 1;
-		
-		}else if(distanciaDeVision.x + this.rangoVision === posComida.x && distanciaDeVision.y === posComida.y){
-
-			visionComida[2] = 1;
-			
-		}
-		else if(distanciaDeVision.x - this.rangoVision === posComida.x && distanciaDeVision.y === posComida.y){
-
-			visionComida[3] = 1;
-
-		}
-		// -------------------------------------------------------------------------------------------------------Va mirando paredes
-		if( distanciaDeVision.y - this.rangoVision + escala === 0){
-
-			visionPared[0] = 1;
-			
-		}else if(distanciaDeVision.y + this.rangoVision === 400){
-
-			visionPared[1] = 1;
-			
-
-		}else if(distanciaDeVision.x + this.rangoVision === 400){
-
-			visionPared[2] = 1;
-			
-
-		}else if(distanciaDeVision.x - this.rangoVision + escala === 0){
-
-			visionPared[3] = 1;	
-
-		}
-		
-		// -------------------------------------------------------------------------------------------------------Va mirando su cola
-		
-		for(var i = 0; i < this.cola.length; i++){
-
-			if(distanciaDeVision.x === this.cola[i].x && distanciaDeVision.y - this.rangoVision === this.cola[i].y){
-
-				visionCola[0] = 1;
 				
-			}else if(distanciaDeVision.x === this.cola[i].x && distanciaDeVision.y + this.rangoVision === this.cola[i].y){
-
-				visionCola[1] = 1;
-				
-			}else if(distanciaDeVision.x + this.rangoVision === this.cola[i].x && distanciaDeVision.y === this.cola[i].y){
-
-				visionCola[2] = 1;
-				
-			}else if(distanciaDeVision.x - this.rangoVision === this.cola[i].x && distanciaDeVision.y === this.cola[i].y){
-
-				visionCola[3] = 1;	
-
-			}
-		}
-		
-		this.rangoVision += escala;
-
-	}while(this.rangoVision <= this.maximaVision);		
-	
-	this.rangoVision = escala;	
-
-	}
-
-
 }
