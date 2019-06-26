@@ -156,6 +156,7 @@ if(muerto === true){
     for (let i = 0; i < this.cola.length; i++) {
       rect(this.cola[i].x, this.cola[i].y, escala, escala);
     }
+    fill(50,200,10);
     rect(this.x, this.y, escala, escala);
   }
 
