@@ -1,12 +1,12 @@
 
 // CON AL MODIFICACION DE LA SIGUIENTE VARIABLE SE M ODIFICA TODA LA ESCALA-TAMAÑO DEL JUEGO COMPLETO:
-	var escala = 25;     //(20)  valor relacionado con la escala del juego
+	var escala = 20;     //(20)  valor relacionado con la escala del juego
 		
 	//El ancho del area del juego es una proporcion de la variable escala:
 	var anchoAreaDeJuego = escala * 20; 
 	//La altura va en funcion del ancho para que mantenga proporcion adecuada 
 	// tambien se puede modificafr esto para darle la altura que se desee mas alla del ancho
-	var altoAreaDeJuego =anchoAreaDeJuego * 1.125; //(450)   Valor nominal anterior 
+	var altoAreaDeJuego =anchoAreaDeJuego; //(400)   Valor nominal anterior 
 	var s, c,k; // objetos serpiente y comida
 	var columnas, filas;
 
