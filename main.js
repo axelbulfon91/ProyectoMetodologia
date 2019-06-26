@@ -425,10 +425,14 @@ if(botonHumano[4]==1){
 
 //////////////////////////////        SERPIENTE IA:       ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-		if(botonHumano[4]==1){
+		if(botonIA[4]==1){
 
 //ACA VA EL DRAW DE LA SERPIENTE INTELIGENTE:
  background(51);
+ sonMenu.pause();
+    sonMenu.muted = 'true';
+	myImage.style.display = 'none';
+	myImage2.style.display = 'none';
 
     if (sia.comer(comida)) {
       tomarPos();
