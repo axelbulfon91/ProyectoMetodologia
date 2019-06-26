@@ -105,7 +105,7 @@ if(estadoSonido === true){
 			rect(this.cola[i].x , this.cola[i].y, escala, escala);
 
 		}
-
+		fill(50,200,10);
 		rect(this.x, this.y, escala, escala);
 
 		
