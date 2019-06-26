@@ -1,12 +1,12 @@
 
 // CON AL MODIFICACION DE LA SIGUIENTE VARIABLE SE M ODIFICA TODA LA ESCALA-TAMAÑO DEL JUEGO COMPLETO:
-	var escala = 25;     //(20)  valor relacionado con la escala del juego
+	var escala = 20;     //(20)  valor relacionado con la escala del juego
 		
 	//El ancho del area del juego es una proporcion de la variable escala:
 	var anchoAreaDeJuego = escala * 20; 
 	//La altura va en funcion del ancho para que mantenga proporcion adecuada 
 	// tambien se puede modificafr esto para darle la altura que se desee mas alla del ancho
-	var altoAreaDeJuego =anchoAreaDeJuego * 1.125; //(450)   Valor nominal anterior 
+	var altoAreaDeJuego =anchoAreaDeJuego; //(400)   Valor nominal anterior 
 	var s, c,k; // objetos serpiente y comida
 	var columnas, filas;
 
@@ -50,6 +50,7 @@ let sumalargo;
 let juegosPorPoblacion = 3;
 let mejorLargo;
 let mejorId;
+let comenzoJuegoHumano;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////        FUNCTION SETUP             /////////////////////////////////////////////////////////////////////////////////////////
@@ -419,6 +420,7 @@ if(botonHumano[4]==1){
 	s.comprobarSiCome(); 	// en cada frame comprueba si la serpiente come, de ser asi vuelve a crear otra comida a travez del metodo posicionarComida
 	c.dibujarComida();		// dibuja comida
 	s.devolverPuntaje();
+        comenzoJuegoHumano = false;
 	text('Puntaje: ' + s.punt, anchoAreaDeJuego * 0.050 ,altoAreaDeJuego * 0.955);// Primer valor posicion a lo ancho  (20), segundo valor posicion a lo alto (430)
 		}
 
