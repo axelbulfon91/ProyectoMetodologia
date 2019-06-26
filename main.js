@@ -62,7 +62,7 @@ function setup() {
 ////////////////////////////////////////    SETUP SERPIENTE HUMANA   ////////////////////////////////////////////////////////////////////////////////////
 
 //La siguiente variable modifica la velocidad del moviemiento de la serpiente humana:
-	frameRate(5);  	
+	frameRate(15);  	
 	createCanvas(anchoAreaDeJuego, altoAreaDeJuego);
 	columnas = floor(anchoAreaDeJuego/escala);
 	filas = floor(anchoAreaDeJuego/escala);
