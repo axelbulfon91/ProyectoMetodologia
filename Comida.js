@@ -1,13 +1,14 @@
-var esc = escala; //Se modifico esta variable para que este referida a la variable "escala" de PruebaSerpiente.js para que cambie de tamaño la fruta tambien
-var posComida, comida;
+var posComida, comi;
 
-function Comida(){
+function Comi(){
+
 
 	this.posicionarComida = function(x, y){
 
-		comida = createVector (floor(random(x)), floor(random (y)));
-  		comida.mult(esc);
-  		posComida = createVector(comida.x, comida.y)
+		comi = createVector (floor(random(x)), floor(random (y)));
+  		comi.mult(escala);
+  		posComida = createVector(comi.x, comi.y)
+  		return true;
   		
 
 	}
@@ -21,7 +22,7 @@ function Comida(){
 	this.dibujarComida = function(){
 
 		fill(220,70,0);
-		rect(comida.x, comida.y, esc, esc);
+		rect(comi.x, comi.y, escala, escala);
 
 	}
 
