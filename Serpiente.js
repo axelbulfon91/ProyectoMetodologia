@@ -1,4 +1,4 @@
-let com; 
+var com; 
 
 function Serpiente () {
 
@@ -13,6 +13,7 @@ function Serpiente () {
 	this.maximaVision = this.rangoVision * 5  // Alcance maximo de la vision (5 veces el tamaño de la cabeza)
 	com = new Comi();
 
+this.tamanioAreaDeJuego = anchoAreaDeJuego;
 
 	this.direccion = function(x, y){
 
@@ -30,10 +31,16 @@ function Serpiente () {
 			var distanciaAMorir = dist (this.x, this.y, pos.x, pos.y);
 
 			if (distanciaAMorir < 1) {
-
-				//this.tam = 0;
-				//this.cola = [];
 				this.devolverPuntaje();
+				sonMov.remove(); 
+				pantallaFin = true;
+				
+				 if(estadoSonido === true){
+	          			sonMuert.play();
+	         		 }else{
+	          			sonMuert.remove();
+	          }	
+				
 				textAlign(CENTER);
 				text('Juego Terminado!!! presione F5 para recargar pagina', 200, 200);
 				frameRate(0);
@@ -47,6 +54,12 @@ function Serpiente () {
 		var distanciaAComida = dist(this.x, this.y, posi.x, posi.y);
 
 		if (distanciaAComida < 1) {
+
+if(estadoSonido === true){
+	          	sonFrut.play();
+	         }else{
+	            sonFrut.remove();
+	          }
 
 			this.tam++;
 			return true;
@@ -80,6 +93,12 @@ function Serpiente () {
 	this.mostrar = function(){
 
 		fill(255);
+
+		if( estadoSonido === true){
+			sonMov.play();
+		}else{
+			sonMov.remove();
+		}	
 
 		for(var i = 0; i < this.tam; i++){
 

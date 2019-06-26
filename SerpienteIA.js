@@ -13,13 +13,21 @@ function SerpienteIA(x, y, xVel, yVel, total, cola, pesos, contComida) {
 
   this.comer = function(pos) {
     let d = dist(this.x, this.y, pos.x, pos.y);
-    if (d < 1) {
+    if (d < 1) {  
+            //
+            if(estadoSonido === true){
+              sonFrut.play();
+           }else{
+              sonFrut.remove();
+            }
+//
       this.total++;
       this.contComida = 0;
       return true;
     } else {
       return false;
     }
+
   }
 
   this.dir = function(x, y) {
@@ -28,6 +36,7 @@ function SerpienteIA(x, y, xVel, yVel, total, cola, pesos, contComida) {
   }
 
   this.morir = function() {
+
     let muerto = false;
     
     if (this.x === escala*-1 || this.x === width ||
@@ -45,9 +54,21 @@ function SerpienteIA(x, y, xVel, yVel, total, cola, pesos, contComida) {
         }
       }
     }
-
     return muerto;
+    //Sonido:
+if(muerto === true){
+  sonMov.remove(); 
+        pantallaFin = true;
+        
+         if(estadoSonido === true){
+                  sonMuert.play();
+               }else{
+                  sonMuert.remove();
+            } 
+}
+//
   }
+
 
   this.final = function() {
     let columnas = width/escala;
@@ -123,6 +144,15 @@ function SerpienteIA(x, y, xVel, yVel, total, cola, pesos, contComida) {
 
   this.mostrar = function() {
     fill(255);
+
+    //Sonido:
+      if( estadoSonido === true){
+      sonMov.play();
+    }else{
+      sonMov.remove();
+    } 
+    //
+
     for (let i = 0; i < this.cola.length; i++) {
       rect(this.cola[i].x, this.cola[i].y, escala, escala);
     }
